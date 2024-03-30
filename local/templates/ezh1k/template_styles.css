@@ -1,0 +1,57 @@
+:root {
+    --bg-primary: #1f2a38;
+    --fg-primary: #ffffff;
+    --my-black: #000000;
+    --my-teal: #51b3b7;
+    --my-violet: #714a85;
+    --my-blue: #407db1;
+    --my-purple: #4c3276;
+    --my-dark-purple: #42295c;
+    --my-red: #d0636b;
+    --my-cyan: #38707b;
+    --my-dark-cyan: #2c4c64;
+    --my-shadow: 10px 0px 15px 0px rgba(34, 60, 80, 0.2);
+}
+
+body {
+    font-size: 16px;
+    background-color: var(--bg-primary);
+    color: var(--fg-primary);
+}
+
+.header-image {
+    width: 85px;
+    height: auto;
+}
+
+.site-title {
+    font-size: 28px;
+    color: var(--fg-primary);
+}
+
+.custom-toggler {
+    border-color: var(--fg-primary);
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.auth-buttons {
+    background-color: var(--my-purple);
+    border-radius: 30px;
+}
+
+.auth-button {
+    color: inherit;
+}
+
+.auth-avatar::after {
+    content: " | ";
+    font-size: 18px;
+}
+
+.auth-avatar-icon {
+    width: 28px;
+    height: auto;
+}

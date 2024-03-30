@@ -1,9 +1,13 @@
 bitrix
 
 /local/logs/
+**/libs
+**/vendor
+
 /upload/
 
 *.log
+*.txt
 
 *.zip
 *.zip*
