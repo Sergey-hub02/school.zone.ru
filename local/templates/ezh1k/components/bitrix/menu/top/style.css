@@ -1,0 +1,16 @@
+.menu {
+    background-color: var(--my-dark-cyan);
+}
+
+.menu-navbar-item {
+    transition: background-color .2s linear;
+}
+
+.menu-navbar-item:hover,
+.menu-navbar-item.active {
+    background-color: var(--my-cyan);
+}
+
+.navbar-item-link {
+    color: inherit;
+}

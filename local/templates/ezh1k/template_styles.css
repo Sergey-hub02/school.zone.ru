@@ -20,12 +20,12 @@ body {
 }
 
 .header-image {
-    width: 85px;
+    width: 65px;
     height: auto;
 }
 
 .site-title {
-    font-size: 28px;
+    font-size: 25px;
     color: var(--fg-primary);
 }
 
@@ -54,4 +54,10 @@ body {
 .auth-avatar-icon {
     width: 28px;
     height: auto;
+}
+
+@media (max-width: 520px) {
+    .site-title-box {
+        display: none;
+    }
 }

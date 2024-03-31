@@ -1,4 +1,9 @@
-<?php use Bitrix\Main\Page\Asset; ?>
+<?php
+/**
+ * @var CMain $APPLICATION
+ */
+use Bitrix\Main\Page\Asset;
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -24,7 +29,7 @@
 <?php $APPLICATION->ShowPanel() ?>
 
 <header class="header">
-    <nav class="navbar navbar-expand-xl">
+    <nav class="navbar navbar-expand-md">
         <div class="container">
             <div class="navbar-brand d-flex align-items-center">
                 <a href="http://school.zone.ru">
@@ -35,26 +40,14 @@
                     >
                 </a>
 
-                <div class="ps-3">
+                <div class="ps-3 site-title-box">
                     <h1>
                         <a class="text-decoration-none site-title" href="http://school.zone.ru">School Zone</a>
                     </h1>
                 </div>
             </div>
 
-            <button
-                class="navbar-toggler custom-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbar-menu"
-                aria-controls="navbar-menu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div id="navbar-menu" class="navbar-collapse collapse flex-grow-0">
+            <div id="navbar-menu" class="flex-grow-0 d-md-block d-none">
                 <div class="navbar-nav">
                     <div class="auth-buttons shadow py-2 px-3">
                         <a class="auth-button auth-avatar text-decoration-none" href="/profile/">
@@ -69,6 +62,42 @@
                     </div>
                 </div>
             </div>
+
+            <?php
+            $APPLICATION->IncludeComponent(
+                'bitrix:menu',
+                'top_mobile',
+                [
+                    'ROOT_MENU_TYPE' => 'top',
+                    'MENU_CACHE_TYPE' => 'N',
+                    'MENU_CACHE_TIME' => 36000,
+                    'MENU_CACHE_USE_GROUPS' => 'Y',
+                    'MENU_CACHE_GET_VARS' => '',
+                    'MAX_LEVEL' => 2,
+                    'USE_EXT' => 'N',
+                    'DELAY' => 'N',
+                    'ALLOW_MULTI_SELECT' => 'N',
+                ]
+            );
+            ?>
         </div>
     </nav>
+
+    <?php
+    $APPLICATION->IncludeComponent(
+        'bitrix:menu',
+        'top',
+        [
+            'ROOT_MENU_TYPE' => 'top',
+            'MENU_CACHE_TYPE' => 'N',
+            'MENU_CACHE_TIME' => 36000,
+            'MENU_CACHE_USE_GROUPS' => 'Y',
+            'MENU_CACHE_GET_VARS' => '',
+            'MAX_LEVEL' => 2,
+            'USE_EXT' => 'N',
+            'DELAY' => 'N',
+            'ALLOW_MULTI_SELECT' => 'N',
+        ]
+    );
+    ?>
 </header>
