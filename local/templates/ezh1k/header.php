@@ -101,3 +101,5 @@ use Bitrix\Main\Page\Asset;
     );
     ?>
 </header>
+
+<main>
