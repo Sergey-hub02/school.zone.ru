@@ -102,4 +102,4 @@ use Bitrix\Main\Page\Asset;
     ?>
 </header>
 
-<main>
+<main class="py-4">
