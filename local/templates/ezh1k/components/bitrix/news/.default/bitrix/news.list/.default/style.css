@@ -1,0 +1,15 @@
+.news-title a {
+    font-size: 18px;
+    color: inherit;
+    transition: text-decoration .2s linear;
+}
+
+.news-title a:hover {
+    text-decoration: underline !important;
+}
+
+.news-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+}

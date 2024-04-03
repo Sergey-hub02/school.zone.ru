@@ -19,6 +19,18 @@ body {
     color: var(--fg-primary);
 }
 
+/*========== ПЕРЕОПРЕДЕЛЕНИЕ СТИЛЕЙ BOOTSTRAP ==========*/
+.btn-primary {
+    background-color: var(--my-dark-purple);
+    border-color: var(--my-dark-purple);
+}
+
+.btn-primary:hover {
+    background-color: var(--my-purple);
+    border-color: var(--my-purple);
+}
+
+/*========== СОБСТВЕННЫЕ СТИЛИ ==========*/
 .header-image {
     width: 65px;
     height: auto;
@@ -54,6 +66,14 @@ body {
 .auth-avatar-icon {
     width: 28px;
     height: auto;
+}
+
+hr {
+    margin: 8px 0;
+    border: 0;
+
+    height: 2px;
+    background-color: var(--fg-primary);
 }
 
 footer .row {
@@ -93,7 +113,25 @@ footer .copyright {
     padding-bottom: 30px;
 }
 
+.section-title::after {
+    content: "";
+
+    display: block;
+    margin-top: 10px;
+
+    width: 50px;
+    height: 4px;
+
+    background-color: var(--my-red);
+}
+
 /*========== МЕДИА ЗАПРОСЫ ==========*/
+@media (max-width: 576px) {
+    .section-title::after {
+        margin: 10px auto 0 auto;
+    }
+}
+
 @media (max-width: 520px) {
     .site-title-box {
         display: none;

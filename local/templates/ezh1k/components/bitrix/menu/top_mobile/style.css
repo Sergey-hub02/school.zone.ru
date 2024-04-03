@@ -18,7 +18,7 @@
     display: none !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     #top-mobile-menu.show {
         display: block !important;
     }
