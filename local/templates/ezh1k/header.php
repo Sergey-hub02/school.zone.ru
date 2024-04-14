@@ -3,6 +3,11 @@
  * @var CMain $APPLICATION
  */
 use Bitrix\Main\Page\Asset;
+
+if (!$GLOBALS['USER']->IsAuthorized()) {
+    LocalRedirect('/auth/');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">

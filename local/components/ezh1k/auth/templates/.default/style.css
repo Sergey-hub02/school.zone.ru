@@ -1,0 +1,95 @@
+.auth-box {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.auth-form-image-box {
+    text-align: center;
+}
+
+.auth-form-image {
+    width: 100px;
+    height: auto;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    padding: 10px 18px;
+}
+
+.auth-form-title {
+    margin: 8px 0;
+    text-align: center;
+}
+
+.alert-danger {
+    padding: 15px 20px;
+    background-color: var(--my-red);
+    opacity: .8;
+
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.auth-form-field {
+    margin-bottom: 10px;
+}
+
+.auth-form-field.text-center {
+    text-align: center;
+}
+
+.auth-form-link {
+    line-height: 1.2;
+    text-decoration: underline dashed;
+}
+
+.auth-form-link:hover {
+    text-decoration: underline;
+}
+
+.auth-form-element {
+    width: 100%;
+    padding: 10px 15px;
+
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+
+    border: 2px solid var(--my-dark-cyan);
+    border-radius: 5px;
+
+    outline: 0;
+    background-color: transparent;
+    transition: border-color .1s linear;
+}
+
+.auth-form-element:focus {
+    border-color: var(--my-cyan);
+}
+
+.auth-form-btn {
+    margin: 0;
+    padding: 12px 20px;
+    border-radius: 5px;
+
+    border: 0;
+    outline: 0;
+
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+
+    background-color: var(--my-purple);
+    transition: background-color .1s linear;
+    cursor: pointer;
+}
+
+.auth-form-btn:hover {
+    background-color: var(--my-violet);
+}
