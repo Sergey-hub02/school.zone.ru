@@ -30,6 +30,11 @@ body {
     border-color: var(--my-purple);
 }
 
+.form-control {
+    color: inherit !important;
+    background-color: transparent !important;
+}
+
 /*========== СОБСТВЕННЫЕ СТИЛИ ==========*/
 .header-image {
     width: 65px;
