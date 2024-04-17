@@ -10,7 +10,7 @@ $this->setFrameMode(true);
 <section class="section">
     <div class="container">
         <header class="section-header">
-            <h2 class="section-title">Личный кабинет</h2>
+            <h2 class="section-title text-sm-start text-center">Личный кабинет</h2>
         </header>
 
         <div class="section-content">
