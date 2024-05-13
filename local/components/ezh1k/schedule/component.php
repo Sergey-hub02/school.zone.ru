@@ -4,9 +4,10 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 use Bitrix\Main\Loader;
 use Bitrix\Iblock\Elements\ElementStudentsTable;
 use Bitrix\Iblock\Elements\ElementSchoolDaysTable;
+use Bitrix\Highloadblock\HighloadBlockTable;
 
-if (!Loader::includeModule('iblock')) {
-    echo '<div class="container" style="color: var(--my-red)">Не удалось подключить модуль "iblock"!</div>';
+if (!Loader::includeModule('iblock') || !Loader::includeModule('highloadblock')) {
+    echo '<div class="container" style="color: var(--my-red)">Не удалось подключить нужные модули!</div>';
     return;
 }
 
@@ -82,21 +83,86 @@ while ($day = $arSchoolDays->fetch()) {
         $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_' . $i . '_ELEMENT_NAME'] = $lessonName;
     }
 
-    $arResult['SCHOOL_DAYS'][] = [
+    $arResult['SCHOOL_DAYS'][$day['DATE']] = [
         'ID' => $day['ID'],
         'NAME' => $day['NAME'],
         'DATE' => $day['DATE'],
-        'LESSON_1' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_1_ELEMENT_NAME'],
-        'LESSON_2' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_2_ELEMENT_NAME'],
-        'LESSON_3' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_3_ELEMENT_NAME'],
-        'LESSON_4' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_4_ELEMENT_NAME'],
-        'LESSON_5' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_5_ELEMENT_NAME'],
-        'LESSON_6' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_6_ELEMENT_NAME'],
-        'LESSON_7' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_7_ELEMENT_NAME'],
-        'LESSON_8' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_8_ELEMENT_NAME'],
     ];
 
+    for ($i = 1; $i <= 8; ++$i) {
+        $arResult['SCHOOL_DAYS'][$day['DATE']]["LESSON_$i"] = [
+            'NAME' => $day['IBLOCK_ELEMENTS_ELEMENT_SCHOOL_DAYS_SCHOOL_DAY_LESSON_' . $i . '_ELEMENT_NAME'],
+            'HOMEWORK' => '',
+            'GRADE' => '',
+        ];
+    }
+
     $dayIterator->add($interval);
+}
+
+/*========== ПОЛУЧЕНИЕ ДОМАШНИХ ЗАДАНИЙ ==========*/
+$daysArray = array_map(
+    fn (array $day) => $day['DATE'],
+    $arResult['SCHOOL_DAYS']
+);
+
+$studentClass = $student['IBLOCK_ELEMENTS_ELEMENT_STUDENTS_STUDENT_CLASS_ELEMENT_ID'];
+$homeworkEntity = getHLEntity('Homework');
+
+$arHomeworkOrder = ['UF_HOMEWORK_DATE' => 'ASC'];
+
+$arHomeworkFilter = [
+    'UF_HOMEWORK_DATE' => $daysArray,
+    'UF_HOMEWORK_CLASS' => $studentClass,
+];
+
+$arHomeworkSelect = [
+    'ID',
+    'UF_HOMEWORK_DATE',
+    'UF_HOMEWORK_LESSON_NUMBER',
+    'UF_HOMEWORK_TEXT',
+];
+
+$arHomework = $homeworkEntity::getList([
+    'order' => $arHomeworkOrder,
+    'filter' => $arHomeworkFilter,
+    'select' => $arHomeworkSelect,
+]);
+
+while ($hw = $arHomework->fetch()) {
+    $date = $hw['UF_HOMEWORK_DATE']->toString();
+    $lessonNumber = $hw['UF_HOMEWORK_LESSON_NUMBER'];
+    $arResult['SCHOOL_DAYS'][$date]["LESSON_$lessonNumber"]['HOMEWORK'] = $hw['UF_HOMEWORK_TEXT'];
+}
+
+/*========== ПОЛУЧЕНИЕ ОЦЕНОК ==========*/
+$gradesEntity = getHLEntity('Grades');
+
+$arGradesOrder = ['UF_GRADE_DATE' => 'ASC'];
+
+$arGradesFilter = [
+    'UF_GRADE_DATE' => $daysArray,
+    'UF_GRADE_USER' => $GLOBALS['USER']->GetID(),
+];
+
+$arGradesSelect = [
+    'ID',
+    'UF_GRADE_DATE',
+    'UF_GRADE_TEXT',
+    'UF_GRADE_LESSON_NUMBER',
+    'UF_GRADE_USER',
+];
+
+$arGrades = $gradesEntity::getList([
+    'order' => $arGradesOrder,
+    'filter' => $arGradesFilter,
+    'select' => $arGradesSelect,
+]);
+
+while ($grade = $arGrades->fetch()) {
+    $date = $grade['UF_GRADE_DATE']->toString();
+    $lessonNumber = $grade['UF_GRADE_LESSON_NUMBER'];
+    $arResult['SCHOOL_DAYS'][$date]["LESSON_$lessonNumber"]['GRADE'] = $grade['UF_GRADE_TEXT'];
 }
 
 $this->includeComponentTemplate();
