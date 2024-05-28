@@ -21,5 +21,11 @@ $aMenuLinks = Array(
 		[],
 		'',
 	],
+	[
+		'Оценки',
+		SITE_DIR . 'grades/add/',
+		[],
+		[],
+		'CSite::InGroup([6])',
+	]
 );
-?>
